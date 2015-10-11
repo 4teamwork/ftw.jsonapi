@@ -7,7 +7,11 @@ tests_require = [
     'ftw.builder',
     'ftw.testbrowser',
     'ftw.testing',
+    'path.py',
+    'plone.app.dexterity',
     'plone.app.testing',
+    'plone.directives.form',
+    'plone.namedfile',
     'unittest2',
 ]
 
