@@ -12,7 +12,7 @@
         description=""
         class="Products.Archetypes.BaseContent.BaseContent"
         original="__before_publishing_traverse__"
-        replacement="plone.rest.patches.ArchetypesContent__before_publishing_traverse__"
+        replacement=".patches.ArchetypesContent__before_publishing_traverse__"
         />
 
     <plone:service
