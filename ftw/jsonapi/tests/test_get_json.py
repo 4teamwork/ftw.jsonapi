@@ -18,7 +18,7 @@ class TestGetJSON(FunctionalTestCase):
             browser.json)
 
     @browsing
-    def test_of_an_AT_document(self, browser):
+    def test_get_AT_document(self, browser):
         self.grant('Manager')
 
         with freeze(datetime(2015, 8, 17, 12, 35, 22)):
@@ -27,12 +27,13 @@ class TestGetJSON(FunctionalTestCase):
                           .having(text='<p>A very simple page.</p>'))
 
         browser.login().webdav('GET', page, headers={'Accept': 'application/json'})
-
         self.assertDictContainsSubset(
-            {'_id': 'the-page',
-             '_path': '/plone/the-page',
-             '_type': 'Document',
-             'title': 'The Page',
-             'text': '<p>A very simple page.</p>',
-             'text:mimetype': 'text/html'},
+            {u'_id': u'the-page',
+             u'_path': u'/plone/the-page',
+             u'_type': u'Document',
+             u'_class': u'Products.ATContentTypes.content.document.ATDocument',
+             u'creation_date:date': u'2015/08/17 14:35:22 GMT+3',
+             u'title': u'The Page',
+             u'text': u'<p>A very simple page.</p>',
+             u'text:mimetype': u'text/html'},
             browser.json)
