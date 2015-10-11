@@ -5,24 +5,24 @@ from datetime import timedelta
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.jsonapi.tests import FunctionalTestCase
+from ftw.jsonapi.tests import json_browsing
 from ftw.jsonapi.tests.helpers import asset
 from ftw.jsondump.tests.dxitem import IDXItemSchema
-from ftw.testbrowser import browsing
 from ftw.testing import freeze
 
 
 class TestGetJSON(FunctionalTestCase):
 
-    @browsing
+    @json_browsing
     def test_get_site_root(self, browser):
-        browser.webdav('GET', headers={'Accept': 'application/json'})
+        browser.webdav('GET')
         self.assertDictContainsSubset(
             {'_id': 'plone',
              '_path': '/plone',
              '_type': 'Plone Site'},
             browser.json)
 
-    @browsing
+    @json_browsing
     def test_get_AT_document(self, browser):
         self.grant('Manager')
 
@@ -31,7 +31,7 @@ class TestGetJSON(FunctionalTestCase):
                           .titled('The Page')
                           .having(text='<p>A very simple page.</p>'))
 
-        browser.login().webdav('GET', page, headers={'Accept': 'application/json'})
+        browser.login().webdav('GET', page)
         self.assertDictContainsSubset(
             {u'_id': u'the-page',
              u'_path': u'/plone/the-page',
@@ -43,7 +43,7 @@ class TestGetJSON(FunctionalTestCase):
              u'text:mimetype': u'text/html'},
             browser.json)
 
-    @browsing
+    @json_browsing
     def test_get_DX_object(self, browser):
         with freeze(datetime(2015, 12, 22, 17, 19, 54)):
             item = create(
@@ -67,7 +67,7 @@ class TestGetJSON(FunctionalTestCase):
                 .attach_image(asset('empty.gif'))
                 .attach_file(asset('helloworld.py')))
 
-        browser.login().webdav('GET', item, headers={'Accept': 'application/json'})
+        browser.login().webdav('GET', item)
 
         self.assertDictContainsSubset(
             {u'_id': u'the-dexterity-item',
