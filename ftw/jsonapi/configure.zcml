@@ -1,5 +1,24 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    i18n_domain="ftw.theming">
+    xmlns:monkey="http://namespaces.plone.org/monkey"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="ftw.jsonapi">
+
+    <include package="plone.rest" />
+
+    <!-- Patch should go to plone.rest -->
+    <include package="collective.monkeypatcher" />
+    <monkey:patch
+        description=""
+        class="Products.Archetypes.BaseContent.BaseContent"
+        original="__before_publishing_traverse__"
+        replacement="plone.rest.patches.ArchetypesContent__before_publishing_traverse__"
+        />
+
+    <plone:service
+        method="GET"
+        for="*"
+        factory=".get_service.GetService"
+        />
 
 </configure>

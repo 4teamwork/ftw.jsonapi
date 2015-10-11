@@ -4,6 +4,9 @@ import os
 version = '1.0.0.dev0'
 
 tests_require = [
+    'ftw.builder',
+    'ftw.testbrowser',
+    'ftw.testing',
     'plone.app.testing',
     'unittest2',
 ]
@@ -38,6 +41,8 @@ setup(name='ftw.jsonapi',
 
       install_requires=[
           'Plone',
+          'ftw.jsondump',
+          'plone.rest',
           'setuptools',
       ],
       tests_require=tests_require,
