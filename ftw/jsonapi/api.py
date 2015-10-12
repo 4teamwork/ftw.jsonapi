@@ -63,6 +63,7 @@ class APIView(BrowserView):
     def get_endpoints_for_verb(self, verb_iface):
         alsoProvides(self.request, verb_iface)
         try:
-            return list(getAdapters((self.context, self.request), IAPIEndpoint))
+            return list(getAdapters((self.context, self.request),
+                                    IAPIEndpoint))
         finally:
             noLongerProvides(self.request, verb_iface)
