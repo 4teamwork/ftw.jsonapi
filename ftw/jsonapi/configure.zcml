@@ -4,6 +4,7 @@
     i18n_domain="ftw.jsonapi">
 
     <include package=".endpoints" />
+    <include package=".partials" />
 
     <browser:page
         name="api"

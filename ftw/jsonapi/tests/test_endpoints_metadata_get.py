@@ -112,3 +112,18 @@ class TestMetadataGETEndpoint(FunctionalTestCase):
              u'plone.app.dexterity.behaviors.metadata.IBasic.title': u'The Dexterity Item'
             },
             browser.json)
+
+    @browsing
+    def test_get_includes_children(self, browser):
+        self.grant('Manager')
+        folder = create(Builder('folder').titled('The Folder'))
+        create(Builder('page').titled('The Page').within(folder))
+
+        browser.login().webdav('GET', folder, view='api/metadata')
+        self.assertDictContainsSubset(
+            {u'children': [
+                {u'title': u'The Page',
+                 u'id': u'the-page',
+                 u'@url': u'{}/the-folder/the-page/api/metadata'.format(self.portal.portal_url())}
+            ]},
+            browser.json)
