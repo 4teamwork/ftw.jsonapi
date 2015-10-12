@@ -7,7 +7,10 @@ from zope.interface import implements
 from zope.interface import Interface
 
 
-class Metadata(object):
+class GetMetadata(object):
+    """Returns the JSON representation of the metadata of the object.
+    """
+
     implements(IAPIEndpoint)
     adapts(Interface, IGET)
 

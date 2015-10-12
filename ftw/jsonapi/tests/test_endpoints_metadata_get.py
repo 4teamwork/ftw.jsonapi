@@ -11,7 +11,7 @@ from ftw.testbrowser import browsing
 from ftw.testing import freeze
 
 
-class TestMetadataEndpoint(FunctionalTestCase):
+class TestMetadataGETEndpoint(FunctionalTestCase):
 
     @browsing
     def test_get_site_root(self, browser):

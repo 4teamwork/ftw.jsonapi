@@ -2,6 +2,6 @@
     xmlns="http://namespaces.zope.org/zope"
     i18n_domain="ftw.jsonapi">
 
-    <adapter name="metadata" factory=".metadata.Metadata" />
+    <adapter name="metadata" factory=".metadata.GetMetadata" />
 
 </configure>
