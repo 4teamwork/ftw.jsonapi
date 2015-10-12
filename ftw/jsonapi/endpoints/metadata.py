@@ -3,7 +3,6 @@ from ftw.jsonapi.endpoints import Endpoint
 from ftw.jsonapi.interfaces import IAPIMetadataJson
 from ftw.jsonapi.interfaces import IGET
 from ftw.jsonapi.interfaces import IPATCH
-from ftw.jsonapi.interfaces import IPOST
 from ftw.jsonapi.utils import extract_json_from_request
 from ftw.jsonapi.utils import path_relative_to_root
 from ftw.jsonapi.utils import set_json_headers
@@ -33,7 +32,8 @@ class PatchMetadata(Endpoint):
     def __call__(self):
         item = extract_json_from_request(self.request)
         self.validate(item)
-        item['_path'] = path_relative_to_root('/'.join(self.context.getPhysicalPath()))
+        item['_path'] = path_relative_to_root(
+            '/'.join(self.context.getPhysicalPath()))
         self.transmogrify(item)
         set_json_headers(self.request)
         return IAPIMetadataJson(self.context)
