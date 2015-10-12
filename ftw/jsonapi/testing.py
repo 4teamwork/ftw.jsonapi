@@ -1,12 +1,16 @@
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
+from ftw.testing.quickinstaller import snapshots
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import PLONE_ZSERVER
 from plone.app.testing import PloneSandboxLayer
 from zope.configuration import xmlconfig
 import ftw.jsonapi.tests.builders
+
+
+snapshots.disable()
 
 
 class JsonAPILayer(PloneSandboxLayer):
