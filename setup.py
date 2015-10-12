@@ -46,7 +46,6 @@ setup(name='ftw.jsonapi',
       install_requires=[
           'Plone',
           'ftw.jsondump',
-          'plone.rest',
           'setuptools',
       ],
       tests_require=tests_require,
