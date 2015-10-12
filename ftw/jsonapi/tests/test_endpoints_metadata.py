@@ -23,6 +23,11 @@ class TestMetadataEndpoint(FunctionalTestCase):
             browser.json)
 
     @browsing
+    def test_POST_should_not_work(self, browser):
+        browser.webdav('POST', view='api/metadata')
+        self.assertEquals(404, browser.response.status_code)
+
+    @browsing
     def test_get_AT_document(self, browser):
         self.grant('Manager')
 
