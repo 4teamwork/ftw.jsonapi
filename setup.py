@@ -45,7 +45,9 @@ setup(name='ftw.jsonapi',
 
       install_requires=[
           'Plone',
+          'ftw.inflator [dexterity]',
           'ftw.jsondump',
+          'plone.api',
           'setuptools',
       ],
       tests_require=tests_require,

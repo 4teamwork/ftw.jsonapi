@@ -15,6 +15,29 @@ from zope.publisher.interfaces import NotFound
 class APIView(BrowserView):
     implements(IPublishTraverse)
 
+    def __init__(self, *args, **kwargs):
+        super(APIView, self).__init__(*args, **kwargs)
+        # Mark the request as non-webdav request in order to allow
+        # non-standard HTTP verbs such as PATCH and PUT to be processed
+        # by our api.
+        # We do this only when the /api view is actually traversed
+        # and we can be sure that this is not a webdav request.
+        self.request.maybe_webdav_client = False
+
+    def __getattr__(self, name):
+        # Since our endpoints provide IBrowserPublisher, the traversal
+        # will verify the traversal by doing a hasattr with the traversed
+        # endpoint name; I do not really understand why.
+        # In order to make traversal happy, we make it possible to access
+        # the endpoints by attribute on the api view.
+        try:
+            return object.__getattr__(self, name)
+        except AttributeError:
+            endpoint = self.get_named_endpoint(name)
+            if not endpoint:
+                raise
+            return endpoint
+
     def __call__(self):
         endpoints = [
             {'name': ep['name'],
@@ -27,11 +50,7 @@ class APIView(BrowserView):
         return pretty_json({'endpoints': endpoints})
 
     def publishTraverse(self, request, name):
-        self.mark_request(request)
-        endpoint = queryMultiAdapter((self.context, request),
-                                     IAPIEndpoint,
-                                     name=name)
-
+        endpoint = self.get_named_endpoint(name, request)
         if endpoint is None:
             raise NotFound(self, name, request=request)
 
@@ -49,6 +68,12 @@ class APIView(BrowserView):
         except AttributeError:
             self._api_url = self.context.absolute_url() + '/api'
         return self._api_url
+
+    def get_named_endpoint(self, name, request=None):
+        self.mark_request(request or self.request)
+        return queryMultiAdapter((self.context, request or self.request),
+                                 IAPIEndpoint,
+                                 name=name)
 
     def get_endpoints(self):
         endpoints = []

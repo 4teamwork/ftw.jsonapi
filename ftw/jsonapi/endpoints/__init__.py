@@ -8,3 +8,6 @@ class Endpoint(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
+
+    def browserDefault(self, request):
+        return self, ()

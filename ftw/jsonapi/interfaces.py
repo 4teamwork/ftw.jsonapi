@@ -1,7 +1,8 @@
 from zope.interface import Interface
+from zope.publisher.interfaces.browser import IBrowserPublisher
 
 
-class IAPIEndpoint(Interface):
+class IAPIEndpoint(IBrowserPublisher):
     """Provider interface for an API endpoint adapter.
     """
 

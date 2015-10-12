@@ -3,5 +3,6 @@
     i18n_domain="ftw.jsonapi">
 
     <adapter name="metadata" factory=".metadata.GetMetadata" />
+    <adapter name="metadata" factory=".metadata.PatchMetadata" />
 
 </configure>
