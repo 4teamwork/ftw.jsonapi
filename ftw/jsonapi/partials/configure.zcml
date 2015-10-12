@@ -3,5 +3,6 @@
     i18n_domain="ftw.jsonapi">
 
     <adapter factory=".children.ChildrenPartial" name="children" />
+    <adapter factory=".parent.ParentPartial" name="parent" />
 
 </configure>

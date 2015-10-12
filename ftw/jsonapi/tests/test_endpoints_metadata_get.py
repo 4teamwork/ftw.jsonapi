@@ -127,3 +127,21 @@ class TestMetadataGETEndpoint(FunctionalTestCase):
                  u'@url': u'{}/the-folder/the-page/api/metadata'.format(self.portal.portal_url())}
             ]},
             browser.json)
+
+    @browsing
+    def test_get_includes_parent(self, browser):
+        self.grant('Manager')
+        folder = create(Builder('folder').titled('The Folder'))
+
+        browser.login().webdav('GET', folder, view='api/metadata')
+        self.assertDictContainsSubset(
+            {u'parent':  {u'title': u'Plone site',
+                          u'id': u'plone',
+                          u'@url': u'{}/api/metadata'.format(self.portal.portal_url())}},
+            browser.json)
+
+    @browsing
+    def test_plone_site_has_no_parent(self, browser):
+        self.grant('Manager')
+        browser.login().webdav('GET', view='api/metadata')
+        self.assertNotIn('parent', browser.json)

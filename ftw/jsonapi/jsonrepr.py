@@ -13,7 +13,8 @@ import json
 def api_metadata_json(context, partials=('metadata',
                                          'fields',
                                          'uid',
-                                         'children')):
+                                         'children',
+                                         'parent')):
 
     json_representation = getMultiAdapter((context, context.REQUEST),
                                           IJSONRepresentation)
