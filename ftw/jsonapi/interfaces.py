@@ -14,6 +14,20 @@ class IAPIEndpoint(Interface):
         """
 
 
+class IAPIJsonRepresentation(Interface):
+    """Generates a JSON representation for an object optimized for
+    API responses.
+    """
+
+    def __init__(context):
+        """Adapts a context.
+        """
+
+    def as_json():
+        """Returns the data as json
+        """
+
+
 class IAPIRequest(Interface):
     """Marker for API requests.
     """

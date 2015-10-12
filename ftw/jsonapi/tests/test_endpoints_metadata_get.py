@@ -17,7 +17,8 @@ class TestMetadataGETEndpoint(FunctionalTestCase):
     def test_get_site_root(self, browser):
         browser.webdav('GET', view='api/metadata')
         self.assertDictContainsSubset(
-            {'_id': 'plone',
+            {'@url': '{}/api/metadata'.format(self.portal.absolute_url()),
+             '_id': 'plone',
              '_path': '/plone',
              '_type': 'Plone Site'},
             browser.json)
@@ -38,7 +39,8 @@ class TestMetadataGETEndpoint(FunctionalTestCase):
 
         browser.login().webdav('GET', page, view='api/metadata')
         self.assertDictContainsSubset(
-            {u'_id': u'the-page',
+            {u'@url': u'{}/the-page/api/metadata'.format(self.portal.absolute_url()),
+             u'_id': u'the-page',
              u'_path': u'/plone/the-page',
              u'_type': u'Document',
              u'_class': u'Products.ATContentTypes.content.document.ATDocument',
@@ -75,7 +77,8 @@ class TestMetadataGETEndpoint(FunctionalTestCase):
         browser.login().webdav('GET', item, view='api/metadata')
 
         self.assertDictContainsSubset(
-            {u'_id': u'the-dexterity-item',
+            {u'@url': u'{}/the-dexterity-item/api/metadata'.format(self.portal.absolute_url()),
+             u'_id': u'the-dexterity-item',
              u'_path': u'/plone/the-dexterity-item',
              u'_type': u'DXItem',
 
