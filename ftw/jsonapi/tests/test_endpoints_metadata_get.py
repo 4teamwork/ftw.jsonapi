@@ -44,7 +44,7 @@ class TestMetadataGETEndpoint(FunctionalTestCase):
              u'_path': u'/plone/the-page',
              u'_type': u'Document',
              u'_class': u'Products.ATContentTypes.content.document.ATDocument',
-             u'creation_date:date': u'2015/08/17 14:35:22 GMT+3',
+             u'creation_date:date': u'2015/08/17 11:35:22 UTC',
              u'title': u'The Page',
              u'text': u'<p>A very simple page.</p>',
              u'text:mimetype': u'text/html'},
