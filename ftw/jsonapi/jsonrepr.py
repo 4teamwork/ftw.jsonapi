@@ -10,10 +10,13 @@ import json
 
 @implementer(IAPIMetadataJson)
 @adapter(Interface)
-def api_metadata_json(context):
+def api_metadata_json(context, partials=('metadata',
+                                         'fields',
+                                         'uid')):
+
     json_representation = getMultiAdapter((context, context.REQUEST),
                                           IJSONRepresentation)
-    data = json.loads(json_representation.json())
+    data = json.loads(json_representation.json(only=partials))
 
     context_api_view = context.restrictedTraverse('@@api')
     data['@url'] = '/'.join((context_api_view.api_url, 'metadata'))
