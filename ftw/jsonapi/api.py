@@ -1,6 +1,7 @@
 from ftw.jsonapi.interfaces import IAPIEndpoint
 from ftw.jsonapi.interfaces import VERBS
 from ftw.jsonapi.utils import pretty_json
+from ftw.jsonapi.utils import set_json_headers
 from zope.component import getAdapters
 from zope.component import queryMultiAdapter
 from zope.interface import alsoProvides
@@ -22,6 +23,7 @@ class APIView(BrowserView):
              '@url': '/'.join((self.api_url, ep['name']))}
             for ep in self.get_endpoints()]
 
+        set_json_headers(self.request)
         return pretty_json({'endpoints': endpoints})
 
     def publishTraverse(self, request, name):
