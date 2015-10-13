@@ -1,5 +1,6 @@
 from plone.app.textfield import RichText
 from plone.dexterity.content import Item
+from plone.directives.form import primary
 from plone.directives.form import Schema
 from plone.namedfile.field import NamedFile
 from plone.namedfile.field import NamedImage
@@ -11,6 +12,8 @@ COLORS = SimpleVocabulary.fromValues([u'Red', 'Blue', 'Green'])
 
 
 class IDXItemSchema(Schema):
+
+    primary('file_field')
 
     bool_field = schema.Bool(title=u'Bool Field', default=False)
     choice_field = schema.Choice(title=u'Choice Field', vocabulary=COLORS)
