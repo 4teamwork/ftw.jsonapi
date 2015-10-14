@@ -51,6 +51,23 @@ class TestMetadataGETEndpoint(FunctionalTestCase):
             browser.json)
 
     @browsing
+    def test_get_AT_file(self, browser):
+        self.grant('Manager')
+        document = create(Builder('file').attach_file_containing(
+            asset('helloworld.py').bytes(),
+            name='helloworld.py'))
+
+        browser.login().webdav('GET', document, view='api/metadata')
+        self.assertDictContainsSubset(
+            {u'@url': u'{}/file/api/metadata'.format(self.portal.absolute_url()),
+             u'_path': u'/plone/file',
+             u'file:download': u'{}/file/api/files/file'.format(self.portal.absolute_url()),
+             u'file:filename': u'helloworld.py',
+             u'file:mimetype': u'text/x-python',
+             u'file:size': 20},
+            browser.json)
+
+    @browsing
     def test_get_DX_object(self, browser):
         with freeze(datetime(2015, 12, 22, 17, 19, 54)):
             item = create(
@@ -88,12 +105,12 @@ class TestMetadataGETEndpoint(FunctionalTestCase):
              u'ftw.jsonapi.tests.dxitem.IDXItemSchema.datetime_field': u'2012-12-30T23:59:00',
              u'ftw.jsonapi.tests.dxitem.IDXItemSchema.decimal_field': 2.6,
              u'ftw.jsonapi.tests.dxitem.IDXItemSchema.dottedname_field': u'zope.schema.interfaces.IDottedName',
-             u'ftw.jsonapi.tests.dxitem.IDXItemSchema.file_field:file': u'cHJpbnQgIkhlbGxvIFdvcmxkIgo=',
+             u'ftw.jsonapi.tests.dxitem.IDXItemSchema.file_field:download': u'{}/the-dexterity-item/api/files/file_field'.format(self.portal.absolute_url()),
              u'ftw.jsonapi.tests.dxitem.IDXItemSchema.file_field:filename': u'helloworld.py',
              u'ftw.jsonapi.tests.dxitem.IDXItemSchema.file_field:mimetype': u'text/x-python',
              u'ftw.jsonapi.tests.dxitem.IDXItemSchema.file_field:size': 20,
              u'ftw.jsonapi.tests.dxitem.IDXItemSchema.float_field': 1.3,
-             u'ftw.jsonapi.tests.dxitem.IDXItemSchema.image_field:file': u'R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+             u'ftw.jsonapi.tests.dxitem.IDXItemSchema.image_field:download': u'{}/the-dexterity-item/api/files/image_field'.format(self.portal.absolute_url()),
              u'ftw.jsonapi.tests.dxitem.IDXItemSchema.image_field:filename': u'empty.gif',
              u'ftw.jsonapi.tests.dxitem.IDXItemSchema.image_field:mimetype': u'image/gif',
              u'ftw.jsonapi.tests.dxitem.IDXItemSchema.image_field:size': 42,
