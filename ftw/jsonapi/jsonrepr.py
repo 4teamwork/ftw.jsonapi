@@ -8,6 +8,13 @@ from zope.interface import Interface
 import json
 
 
+def file_callback(context, key, fieldname, data, filename, mimetype, jsondata):
+    context_api_view = context.restrictedTraverse('@@api')
+    jsondata['{}:download'.format(key)] = '/'.join((context_api_view.api_url,
+                                                    'files',
+                                                    fieldname))
+
+
 @implementer(IAPIMetadataJson)
 @adapter(Interface)
 def api_metadata_json(context, partials=('metadata',
@@ -18,7 +25,9 @@ def api_metadata_json(context, partials=('metadata',
 
     json_representation = getMultiAdapter((context, context.REQUEST),
                                           IJSONRepresentation)
-    data = json.loads(json_representation.json(only=partials))
+    data = json.loads(json_representation.json(only=partials,
+                                               filedata=False,
+                                               file_callback=file_callback))
 
     context_api_view = context.restrictedTraverse('@@api')
     data['@url'] = '/'.join((context_api_view.api_url, 'metadata'))
