@@ -30,5 +30,5 @@ class TestMetadataPatchEndpoint(FunctionalTestCase):
         self.assertEquals(200, browser.response.status_code)
         self.assertDictContainsSubset(
             {'@url': '{}/the-item/api/metadata'.format(self.portal.absolute_url()),
-             'plone.app.dexterity.behaviors.metadata.IBasic.title': 'The best item in town'},
+             'title': 'The best item in town'},
             browser.json)

@@ -27,6 +27,7 @@ def api_metadata_json(context, partials=('metadata',
                                           IJSONRepresentation)
     data = json.loads(json_representation.json(only=partials,
                                                filedata=False,
+                                               field_dottednames=False,
                                                file_callback=file_callback))
 
     context_api_view = context.restrictedTraverse('@@api')
