@@ -52,3 +52,9 @@ class TestFilesGETEndpoint(FunctionalTestCase):
         self.assertEquals(200, browser.response.status_code)
         self.assertEquals('text/x-python', browser.headers.get('Content-Type'))
         self.assertEquals('print "Hello World"\n', browser.contents)
+
+    @browsing
+    def test_portal_has_no_files_endpoint(self, browser):
+        self.grant('Manager')
+        browser.login().webdav('GET', view='api/files')
+        self.assertEquals(404, browser.response.status_code)

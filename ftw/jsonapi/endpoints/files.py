@@ -1,9 +1,9 @@
 from ftw.jsonapi.endpoints import Endpoint
 from ftw.jsonapi.interfaces import IGET
 from plone.dexterity.interfaces import IDexterityContent
+from Products.CMFCore.interfaces import IContentish
 from zope.component import adapts
 from zope.interface import alsoProvides
-from zope.interface import Interface
 from zope.publisher.interfaces import IPublishTraverse
 from zope.publisher.interfaces import NotFound
 
@@ -13,7 +13,7 @@ class GetFiles(Endpoint):
     """
 
     alsoProvides(IPublishTraverse)
-    adapts(Interface, IGET)
+    adapts(IContentish, IGET)
 
     def __init__(self, *args, **kwargs):
         super(GetFiles, self).__init__(*args, **kwargs)
