@@ -9,6 +9,15 @@ Links
 - Pypi: http://pypi.python.org/pypi/ftw.jsonapi
 - Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.jsonapi
 
+Examples
+========
+
+import json
+import urllib2
+
+data = json.load(urllib2.urlopen('http://jsonapi/4teamwork.ch/api'))
+
+
 Copyright
 =========
 
