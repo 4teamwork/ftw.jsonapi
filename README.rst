@@ -11,11 +11,12 @@ Links
 
 Examples
 ========
+.. code-block:: python
 
-import json
-import urllib2
+  import json
+  import urllib2
 
-data = json.load(urllib2.urlopen('http://jsonapi/4teamwork.ch/api'))
+  data = json.load(urllib2.urlopen('http://jsonapi/4teamwork.ch/api'))
 
 
 Copyright
