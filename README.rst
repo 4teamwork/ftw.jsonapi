@@ -56,6 +56,7 @@ Using python and requests
 
   import json
   import requests
+  from datetime import datetime
 
   username = 'ploneconf'
   password = '2015'
@@ -77,7 +78,10 @@ Using python and requests
   # let's set a new title and description on the front-page
 
   url = 'http://jsonapi.4teamwork.ch/front-page/api/metadata'
-  payload = {'title': 'A title set by jsonapi', 'description' : 'This is a description set by jsonapi'}
+  payload = {
+    'title'       : 'A title set by jsonapi on %s' % datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+    'description' : 'This is a description set by jsonapi'
+  }
 
   r = requests.patch(url, data=json.dumps(payload), auth=(username, password))
   print r
