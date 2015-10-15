@@ -61,18 +61,21 @@ Using python and requests
   username = 'ploneconf'
   password = '2015'
 
-  r = requests.get('http://jsonapi.4teamwork.ch/api', auth=(username, password))
+  s = requests.Session()
+  s.auth = (username, password)
+
+  r = s.get('http://jsonapi.4teamwork.ch/api')
   print r
   print r.text
   print r.json()
 
-  r = requests.get('http://jsonapi.4teamwork.ch/api/metadata', auth=(username, password))
+  r = s.get('http://jsonapi.4teamwork.ch/api/metadata', auth=(username, password))
   print r
   metadata = r.json()
 
   print "Listing children:"
   for c in metadata['children']:
-    child_metadata = requests.get(c['@url'], auth=(username, password)).json()
+    child_metadata = s.get(c['@url'], auth=(username, password)).json()
     print 'Title: %s Type: %s' % (c['title'], child_metadata['_type'])
 
   # let's set a new title and description on the front-page
@@ -83,7 +86,7 @@ Using python and requests
     'description' : 'This is a description set by jsonapi'
   }
 
-  r = requests.patch(url, data=json.dumps(payload), auth=(username, password))
+  r = s.patch(url, data=json.dumps(payload))
   print r
 
 Copyright
