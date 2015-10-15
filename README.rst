@@ -15,8 +15,16 @@ Examples
 
   import json
   import urllib2
+  
+  data = json.load(urllib2.urlopen('http://jsonapi.4teamwork.ch/api'))
+  print data
 
-  data = json.load(urllib2.urlopen('http://jsonapi/4teamwork.ch/api'))
+  metadata = json.load(urllib2.urlopen('http://jsonapi.4teamwork.ch/api/metadata'))
+
+  print "Listing children:"
+  for c in metadata['children']:
+    child_metadata = json.load(urllib2.urlopen(c['@url']))
+    print 'Title: %s Type: %s' % (c['title'], child_metadata['_type'])
 
 
 Copyright
