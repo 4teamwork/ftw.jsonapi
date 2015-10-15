@@ -11,6 +11,28 @@ Links
 
 Examples
 ========
+
+Using curl
+----------
+.. code-block::
+  # get endpoints
+  curl -i -uploneconf:2015 http://jsonapi.4teamwork.ch/api
+
+  # get metadata
+  curl -i -uploneconf:2015 http://jsonapi.4teamwork.ch/api/metadata
+  
+  # get front-page document
+  curl -i -uploneconf:2015 http://jsonapi.4teamwork.ch/front-page/api/metadata
+
+  # change title of front-page
+  curl -i -uploneconf:2015 -d '{"title": "Hi there, I am an API"}' -X PATCH http://jsonapi.4teamwork.ch/front-page/api/metadata
+  
+  # add a news entry
+  
+
+Using python
+------------
+
 .. code-block:: python
 
   import json
