@@ -14,7 +14,7 @@ Examples
 
 Using curl
 ----------
-.. code-block:: bash
+.. code-block:: python
   # get endpoints
   curl -i -uploneconf:2015 http://jsonapi.4teamwork.ch/api
 
