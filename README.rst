@@ -1,3 +1,12 @@
+
+----
+
+.. image:: http://www.sevenoaksart.co.uk/images/triangle-spin.gif
+
+**Warning: This is just an unfinished experiment, development has stalled.** Check out `plone.restapi <https://github.com/plone/plone.restapi>`_, which is much better.
+
+----
+
 .. contents:: Table of Contents
 
 
